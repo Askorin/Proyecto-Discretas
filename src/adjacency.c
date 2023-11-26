@@ -114,9 +114,9 @@ void generate_adjacency(Set* vertices_adyacencia[CANT_VERT * CANT_HOR]) {
     remove_from_set(vertices_adyacencia[50], 51);
 
     /* Agregamos los de la diagonal, se supone que va desde abajo hacia arriba (?). */
-    remove_from_set(vertices_adyacencia[111], 96);
-    remove_from_set(vertices_adyacencia[96], 81);
-    remove_from_set(vertices_adyacencia[81], 66);
+    add_to_set(vertices_adyacencia[111], 96);
+    add_to_set(vertices_adyacencia[96], 81);
+    add_to_set(vertices_adyacencia[81], 66);
 
     /* Imprimimos los vértices adyacentes para verificar. */
     // for (int i = 0; i < CANT_VERT * CANT_HOR; ++i) {

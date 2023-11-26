@@ -35,6 +35,7 @@ void remove_from_set(Set* set, int sujeto) {
 }
 
 void print_set(Set* set) {
+    printf("len: %d\n", set->len);
     printf("{ ");
     for (int i = 0; i < set->len; ++i) {
         if (i == set->len - 1) {
@@ -53,5 +54,10 @@ bool in_set(Set* set, int sujeto) {
         }
     }
     return false;
+}
+
+void free_set(Set* set) {
+    free(set->elementos);
+    free(set);
 }
 
