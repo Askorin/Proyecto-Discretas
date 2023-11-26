@@ -148,17 +148,16 @@ void dijkstra(int source, int destiny, Set* ady[CANT_TOTAL]) {
 
 void get_path(int source, int destiny, int padre[CANT_TOTAL]) {
     int vertex = destiny;
-    int* path;
+    int* path = NULL;
     int path_len;
     while (vertex != source) {
         ++path_len;
-        printf("vertex: %d\npath_len: %d\n", vertex, path_len);
         path = realloc(path, sizeof(int) * path_len);
         path[path_len - 1] = vertex;
         vertex = padre[vertex];
     }
 
-    for (int i = 0; i < path_len; ++i) {
+    for (int i = path_len - 1; i >= 0; --i) {
         printf("%d ", path[i]);
     }
     printf("\n");
