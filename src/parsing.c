@@ -142,5 +142,12 @@ int load_input_as_coord(float *** coord_collection_holder, float * number_of_coo
         *(*(*coord_collection_holder + i) + 0) = point_x[i];
         *(*(*coord_collection_holder + i) + 1) = point_y[i];
     }
+
+    //Liberamos memoria
+    for (int i = 0; i < n; i++) {
+        free(input[i]);
+    }
+    free(input);
+
 	return 0;
 }
