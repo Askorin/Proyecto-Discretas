@@ -26,4 +26,7 @@ void print_set(Set*);
 /* Revisa si un elemento en particular está en el conjunto. */
 bool in_set(Set*, int);
 
+/* Libera un conjunto */
+void free_set(Set*);
+
 #endif
