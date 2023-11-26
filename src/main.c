@@ -12,7 +12,10 @@ const int CANT_HOR = 8;
 int main() {
     bool running = true;
 
-    generate_adjacency();
+    /* Generamos la lista de adyacencia. */
+    Set* vertices_adyacencia[CANT_VERT * CANT_HOR];
+    generate_adjacency(vertices_adyacencia);
+
     while (running) {
         /* 
          * Declaramos el arreglo de strings que contendrá el input
@@ -24,6 +27,7 @@ int main() {
         for (int i = 0; i < input_len; ++i) {
             printf("(%.2f, %.2f) ", tuple_inputs[i][0], tuple_inputs[i][1]);
         }
+        printf("\n\n");
 
         /*
          * "Linealizamos" el tuple de coordeenadas, esto para uso en el algoritmo de dijkstra
@@ -32,9 +36,10 @@ int main() {
         int linear_inputs[3];
         for (int i = 0; i < input_len; ++i) {
             linear_inputs[i] = tuple_to_int((int) tuple_inputs[i][1], (int) tuple_inputs[i][0], CANT_VERT);
+            printf("%d : ", linear_inputs[i]);
+            print_set(vertices_adyacencia[linear_inputs[i]]);
+
         }
-        printf("\n");
-        for (int i = 0; i < input_len; ++i) printf("%d, ", linear_inputs[i]); 
         printf("\n");
 
 
