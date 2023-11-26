@@ -111,6 +111,7 @@ int load_input_as_coord(float *** coord_collection_holder, float * number_of_coo
         printf("%s\n", input[i]);
     }
     */
+
     float point_x[n];
     float point_y[n];
     for (int i = 0; i < n; i++) {
@@ -124,9 +125,9 @@ int load_input_as_coord(float *** coord_collection_holder, float * number_of_coo
     float * point;
     float ** coord_collection = NULL;
 
-    coord_collection = (float **) realloc(coord_collection, n * sizeof(float *));
+    coord_collection = realloc(coord_collection, n * sizeof(float *));
     for (int i = 0; i < n; i++) {
-        *(coord_collection + i) = (float *) realloc(*(coord_collection + i), 2 * sizeof(float));
+        *(coord_collection + i) = realloc(*(coord_collection + i), 2 * sizeof(float));
     }
 
     // Escribimos en la entrada

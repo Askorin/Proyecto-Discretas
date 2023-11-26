@@ -5,36 +5,38 @@
 #include <stdbool.h>
 
 
+/* Esto es bastante inseguro! Jaja */
 #define MAX 1000
 
 /*
-Esta función llama a la terminal para el ingreso de datos,
-Recibe un puntero a un array de strings, y recibe un puntero a un entero.
-El array de strings se sobrescribira de forma que:
-- El elemento i-esimo del array es un string que corresponde a la entrada de una dirección
-- El array tiene como numero de elementos al numero de entradas que se detectaron
-El entero se sobreescribiria de forma que:
-- Ahora contiene el numero de entradas que se detectaron
-
-Esta función devuelve:
-0 - Si se realizó con exito
-1 - Si hubo un error en su ejecución
+ * Esta función llama a la terminal para el ingreso de datos,
+ * Recibe un puntero a un array de strings, y recibe un puntero a un entero.
+ * El array de strings se sobrescribira de forma que:
+ *   - El elemento i-esimo del array es un string que corresponde a la entrada de una dirección
+ *   - El array tiene como numero de elementos al numero de entradas que se detectaron
+ * El entero se sobreescribiria de forma que:
+ *   - Ahora contiene el numero de entradas que se detectaron
+ * 
+ * Esta función devuelve:
+ * 0 - Si se realizó con exito
+ * 1 - Si hubo un error en su ejecución
 */
-int load_input_as_string(char *** input_holder, int * number_of_inputs_holder) {
+
+int load_input_as_string(char*** input_holder, int* number_of_inputs_holder) {
     int i;
     int counter;
 
-    // Recibimos el string de entrada
+    /* Recibimos el string de entrada */
     char input_str [MAX];
     scanf("%s", input_str);
 
-    // Revisamos si comienza por rutas
+    /* Revisamos si comienza por rutas */
     if (strcmp(input_str, "rutas") != 0) {
         printf("Entrada no válida: Utilice el comando \"rutas\".\n");
         return 1;
     }
 
-    // Recibimos el resto del string de entrada
+    /* Recibimos el resto del string de entrada */
     for (int i = 0; i < MAX; i++) {
         char c = getchar();
         if (c == '\n') {
@@ -44,7 +46,7 @@ int load_input_as_string(char *** input_holder, int * number_of_inputs_holder) {
         input_str[i] = c;
     }
 
-    // Contamos cuantas comillas hay
+    /* Contamos cuantas comillas hay */
     i = 0;
     counter = 0;
     while (true) {
@@ -58,11 +60,11 @@ int load_input_as_string(char *** input_holder, int * number_of_inputs_holder) {
         i++;
     }
 
-    // Cantidad de direcciones que debemos enviar
+    /* Cantidad de direcciones que debemos enviar */
     int n = counter / 2;
     char inputs[n][MAX];
 
-    // Armamamos las direcciones
+    /* Armamamos las direcciones */
     int state = 0;
     int word_counter = 0;
     int letter_counter = 0;
@@ -99,10 +101,9 @@ int load_input_as_string(char *** input_holder, int * number_of_inputs_holder) {
     }
 
     // Reservamos memoria
-    char ** output = NULL;
-    output = (char **) realloc(output, n * sizeof(char *));
+    char** output = NULL;
+    output = realloc(output, n * sizeof(char *));
     for (int i = 0; i < n; i++) {
-
         int counter = 0;
         while (true) {
             char c = inputs[i][counter];
@@ -114,7 +115,7 @@ int load_input_as_string(char *** input_holder, int * number_of_inputs_holder) {
         }
 
         *(output + i) = NULL;
-        *(output + i) = (char *) realloc(*(output + i), counter * sizeof(char));
+        *(output + i) = realloc(*(output + i), counter * sizeof(char));
     }
 
     // Escribimos en la entrada

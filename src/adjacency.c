@@ -3,10 +3,10 @@
 #include <stdio.h>
 
 /* Cantidad de calles verticales. */
-const int x = 14;
+extern const int CANT_VERT;
 
 /* Cantidad de calles horizontales */
-const int y = 8;
+extern const int CANT_HOR;
 
 void generate_adjacency() {
 // Definimos las direcciones de las calles, estas estan dadas de izquierda a derecha (verticales) y arriba a abajo (horizontales)
@@ -19,32 +19,32 @@ void generate_adjacency() {
     int calles_verticales[] = {ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, AMBAS};
 
     /* Esta es una matriz que nos permite tener una forma de visualizar los vértices. */
-    int id[x][y];
+    int id[CANT_VERT][CANT_HOR];
 
     int contador = 0;
-    for (int i = 0; i < y; ++i) {
-        for (int j = 0; j < x; ++j) {
+    for (int i = 0; i < CANT_HOR; ++i) {
+        for (int j = 0; j < CANT_VERT; ++j) {
             id[j][i] = contador++;
         }
     }
 
     /* Imprimimos la matriz para poder ver las relaciones. */
-    for (int i = 0; i < y; ++i) {
-        for (int j = 0; j < x; ++j) {
-            printf("(%3d) ", id[i][j]);
-        }
-        printf("\n\n");
-    }
+    // for (int i = 0; i < CANT_HOR; ++i) {
+    //     for (int j = 0; j < CANT_VERT; ++j) {
+    //         printf("(%3d) ", id[i][j]);
+    //     }
+    //     printf("\n\n");
+    // }
 
     /* 
      * Ahora generamos una lista de adyacencia para cada vértices. 
      * Cada vértice está relacionado con un conjunto de números.
      */
 
-    Set* vertices_adyacencia[x * y];
+    Set* vertices_adyacencia[CANT_VERT * CANT_HOR];
 
     /* Inicializamos los conjuntos de adyacencia de cada vértice. */
-    for (int i = 0; i < x * y; ++i) {
+    for (int i = 0; i < CANT_VERT * CANT_HOR; ++i) {
         vertices_adyacencia[i] = init_set();
     }
     
@@ -53,24 +53,24 @@ void generate_adjacency() {
      * teniendo en cuenta las direcciones.
      */
 
-    for (int i = 0; i < y; ++i) {
+    for (int i = 0; i < CANT_HOR; ++i) {
         switch (calles_horizontales[i]) {
             case DERECHA:
-                for (int j = 0; j < x - 1; ++j) {
-                    add_to_set(vertices_adyacencia[i * x + j], i * x + j + 1);
+                for (int j = 0; j < CANT_VERT - 1; ++j) {
+                    add_to_set(vertices_adyacencia[i * CANT_VERT + j], i * CANT_VERT + j + 1);
                 }
                 break;
             case IZQUIERDA:
-                for (int j = 1; j < x; ++j) {
-                    add_to_set(vertices_adyacencia[i * x + x - j], i * x + x - j - 1);
+                for (int j = 1; j < CANT_VERT; ++j) {
+                    add_to_set(vertices_adyacencia[i * CANT_VERT + CANT_VERT - j], i * CANT_VERT + CANT_VERT - j - 1);
                 }
                 break;
             case AMBAS:
-                for (int j = 0; j < x - 1; ++j) {
-                    add_to_set(vertices_adyacencia[i * x + j], i * x + j + 1);
+                for (int j = 0; j < CANT_VERT - 1; ++j) {
+                    add_to_set(vertices_adyacencia[i * CANT_VERT + j], i * CANT_VERT + j + 1);
                 }
-                for (int j = 1; j < x; ++j) {
-                    add_to_set(vertices_adyacencia[i * x + x - j], i * x + x - j - 1);
+                for (int j = 1; j < CANT_VERT; ++j) {
+                    add_to_set(vertices_adyacencia[i * CANT_VERT + CANT_VERT - j], i * CANT_VERT + CANT_VERT - j - 1);
                 }
                 break;
             default:
@@ -82,24 +82,24 @@ void generate_adjacency() {
      * Creamos las relaciones entre los vértices de calles que van verticalmente, siempre
      * teniendo en cuenta las direcciones.
      */
-    for (int i = 0; i < x; ++i) {
+    for (int i = 0; i < CANT_VERT; ++i) {
         switch (calles_verticales[i]) {
             case ABAJO:
-                for (int j = 0; j < y - 1; ++j) {
-                    add_to_set(vertices_adyacencia[i + j * x], i + (j + 1) * x);
+                for (int j = 0; j < CANT_HOR - 1; ++j) {
+                    add_to_set(vertices_adyacencia[i + j * CANT_VERT], i + (j + 1) * CANT_VERT);
                 }
                 break;
             case ARRIBA:
-                for (int j = 1; j < y; ++j) {
-                    add_to_set(vertices_adyacencia[i + (y - j) * x], i + (y - 1 - j) * x);
+                for (int j = 1; j < CANT_HOR; ++j) {
+                    add_to_set(vertices_adyacencia[i + (CANT_HOR - j) * CANT_VERT], i + (CANT_HOR - 1 - j) * CANT_VERT);
                 }
                 break;
             case AMBAS:
-                for (int j = 0; j < y - 1; ++j) {
-                    add_to_set(vertices_adyacencia[i + j * x], i + (j + 1) * x);
+                for (int j = 0; j < CANT_HOR - 1; ++j) {
+                    add_to_set(vertices_adyacencia[i + j * CANT_VERT], i + (j + 1) * CANT_VERT);
                 }
-                for (int j = 1; j < y; ++j) {
-                    add_to_set(vertices_adyacencia[i + (y - j) * x], i + (y - 1 - j) * x);
+                for (int j = 1; j < CANT_HOR; ++j) {
+                    add_to_set(vertices_adyacencia[i + (CANT_HOR - j) * CANT_VERT], i + (CANT_HOR - 1 - j) * CANT_VERT);
                 }
                 break;
             default:
@@ -119,8 +119,8 @@ void generate_adjacency() {
     remove_from_set(vertices_adyacencia[81], 66);
 
     /* Imprimimos los vértices adyacentes para verificar. */
-    for (int i = 0; i < x * y; ++i) {
-        printf("V:DA de %3d: ", i);
-        print_set(vertices_adyacencia[i]);
-    }
+    // for (int i = 0; i < CANT_VERT * CANT_HOR; ++i) {
+    //     printf("V:DA de %3d: ", i);
+    //     print_set(vertices_adyacencia[i]);
+    // }
 }
