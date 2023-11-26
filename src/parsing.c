@@ -47,8 +47,9 @@ int get_coordinate_from_direction(char * direction, float * x_holder, float * y_
     float y;
 
     // Definimos las calles horizontales
-    char * h_streets[3] = {"Carrera", "Maipu", "Freire"};
-    int h_streets_number = 3;
+    int h_streets_number = 8;
+    char * h_streets[8] = {"Carrera", "Maipu", "Freire", "Barros Arana",
+                           "O'Higgins", "San Martin", "Cochrane", "Chacabuco"};
     int h_streets_first_direction = 0;
 
     // Revisamos si es una calle horizontal
@@ -57,8 +58,8 @@ int get_coordinate_from_direction(char * direction, float * x_holder, float * y_
         if (strcmp(street_name, h_streets[i]) == 0) {
             cond = true;
 
-            x = ((float)(street_number - h_streets_first_direction)) / 100;
-            y = (float)i;
+            x = (float)i;
+            y = ((float)(street_number - h_streets_first_direction)) / 100;
         }
     }
 
@@ -70,8 +71,10 @@ int get_coordinate_from_direction(char * direction, float * x_holder, float * y_
     }
 
     // Definimos las calles verticales
-    char * v_streets[3] = {"Arturo Prat", "Serrano", "Salas"};
-    int v_streets_number = 3;
+    int v_streets_number = 14;
+    char * v_streets[14] = {"Arturo Prat", "Serrano", "Salas", "Angol", "Lincoyan",
+                           "Rengo", "Caupolican", "Anibal Pinto", "Colo Colo",
+                           "Castellon", "Tucapel", "Orompello", "Ongolmo", "Paicavi"};
     int v_streets_first_direction = 100;
 
     // Revisamos si es una calle vertical
@@ -80,8 +83,8 @@ int get_coordinate_from_direction(char * direction, float * x_holder, float * y_
         if (strcmp(street_name, v_streets[i]) == 0) {
             cond = true;
 
-            x = (float)i;
-            y = 7.0 - ((float)(street_number - v_streets_first_direction)) / 100;
+            x = 7.0 - ((float)(street_number - v_streets_first_direction)) / 100;
+            y = (float)i;
         }
     }
 
@@ -139,5 +142,12 @@ int load_input_as_coord(float *** coord_collection_holder, float * number_of_coo
         *(*(*coord_collection_holder + i) + 0) = point_x[i];
         *(*(*coord_collection_holder + i) + 1) = point_y[i];
     }
+
+    //Liberamos memoria
+    for (int i = 0; i < n; i++) {
+        free(input[i]);
+    }
+    free(input);
+
 	return 0;
 }
