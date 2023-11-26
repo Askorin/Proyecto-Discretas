@@ -8,7 +8,7 @@ extern const int CANT_VERT;
 /* Cantidad de calles horizontales */
 extern const int CANT_HOR;
 
-void generate_adjacency() {
+void generate_adjacency(Set* vertices_adyacencia[CANT_VERT * CANT_HOR]) {
 // Definimos las direcciones de las calles, estas estan dadas de izquierda a derecha (verticales) y arriba a abajo (horizontales)
 
     /* 
@@ -41,7 +41,7 @@ void generate_adjacency() {
      * Cada vértice está relacionado con un conjunto de números.
      */
 
-    Set* vertices_adyacencia[CANT_VERT * CANT_HOR];
+    // Set* vertices_adyacencia[CANT_VERT * CANT_HOR];
 
     /* Inicializamos los conjuntos de adyacencia de cada vértice. */
     for (int i = 0; i < CANT_VERT * CANT_HOR; ++i) {
