@@ -20,18 +20,6 @@ int main() {
     Set* vertices_adyacencia[CANT_TOTAL];
     generate_adjacency(vertices_adyacencia);
 
-    // Set* miset = init_set();
-    // add_to_set(miset, 1);
-    // add_to_set(miset, 2);
-    // add_to_set(miset, 3);
-    // add_to_set(miset, 4);
-    // add_to_set(miset, 5);
-    // print_set(miset);
-    // printf("%d\n", miset->len);
-
-    // remove_from_set(miset, 4);
-    // print_set(miset);
-    // printf("%d\n", miset->len);
 
     while (running) {
         /* 
@@ -40,6 +28,7 @@ int main() {
          */
         float input_len;
         float** tuple_inputs; /* Heap */
+
         if (load_input_as_coord(&tuple_inputs, &input_len)) {
             /* El input produjó un error*/
             printf("\nIngrese la entrada nuevamente:\n");
@@ -54,27 +43,14 @@ int main() {
          * "Linealizamos" el tuple de coordeenadas, esto para uso en el algoritmo de dijkstra
          *  en una lista de adyacencia.
          */
-        int n;
-        if (input_len > 2) {n = 3;}
-        else {n = input_len;}
-        int linear_inputs[n];
 
-        for (int i = 0; i < n; ++i) {
+        int linear_inputs[(int) input_len];
 
+        for (int i = 0; i < (int) input_len; ++i) {
             linear_inputs[i] = tuple_to_int((int) tuple_inputs[i][0], (int) tuple_inputs[i][1], CANT_VERT);
-            printf("%d : ", linear_inputs[i]);
-            print_set(vertices_adyacencia[linear_inputs[i]]);
         }
-        printf("\n");
 
-        // TEMPORAL
-        if (input_len == 2) {
-            int source = tuple_to_int((int) tuple_inputs[0][0], (int) tuple_inputs[0][1], CANT_VERT);
-
-            int destiny = tuple_to_int((int) tuple_inputs[1][0], (int) tuple_inputs[1][1], CANT_VERT);
-            dijkstra(source, destiny, vertices_adyacencia);
-            printf("Done.\n");
-        }
+        get_path((int) input_len, linear_inputs, vertices_adyacencia);
 
 
         /* Liberamos memoria */
