@@ -34,10 +34,6 @@ int main() {
             printf("\nIngrese la entrada nuevamente:\n");
             continue;
         }
-        for (int i = 0; i < input_len; ++i) {
-            printf("(%.2f, %.2f) ", tuple_inputs[i][0], tuple_inputs[i][1]);
-        }
-        printf("\n\n");
 
         /*
          * "Linealizamos" el tuple de coordeenadas, esto para uso en el algoritmo de dijkstra
