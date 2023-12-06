@@ -1,4 +1,5 @@
 #include "../inc/path_finding.h"
+#include "../inc/linealize.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -81,9 +82,21 @@ void get_path(int source, int destiny, int padre[CANT_TOTAL]) {
         vertex = padre[vertex];
     }
 
+    char * v_streets[14] = {"Arturo Prat", "Serrano", "Salas", "Angol", "Lincoyan",
+                           "Rengo", "Caupolican", "Anibal Pinto", "Colo Colo",
+                           "Castellon", "Tucapel", "Orompello", "Ongolmo", "Paicavi"};
+    char * h_streets[8] = {"Carrera", "Maipu", "Freire", "Barros Arana",
+                           "O'Higgins", "San Martin", "Cochrane", "Chacabuco"};
+
     for (int i = path_len - 1; i >= 0; --i) {
-        printf("%d ", path[i]);
+        printf("Vertice: (%d)\n",path[i]);
+        printf("%s con %s\n",h_streets[path[i]/8],v_streets[path[i]%14]);
+
     }
-    printf("\n");
+
+
+
+
+
     free(path);
 }
