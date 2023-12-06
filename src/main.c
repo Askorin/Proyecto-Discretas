@@ -1,5 +1,4 @@
 #include "../inc/input.h"
-#include "../inc/parsing.h"
 #include "../inc/adjacency.h"
 #include "../inc/linealize.h"
 #include "../inc/path_finding.h"
@@ -21,18 +20,6 @@ int main() {
     Set* vertices_adyacencia[CANT_TOTAL];
     generate_adjacency(vertices_adyacencia);
 
-    // Set* miset = init_set();
-    // add_to_set(miset, 1);
-    // add_to_set(miset, 2);
-    // add_to_set(miset, 3);
-    // add_to_set(miset, 4);
-    // add_to_set(miset, 5);
-    // print_set(miset);
-    // printf("%d\n", miset->len);
-
-    // remove_from_set(miset, 4);
-    // print_set(miset);
-    // printf("%d\n", miset->len);
 
     while (running) {
         /* 
@@ -41,8 +28,17 @@ int main() {
          */
         float input_len;
         float** tuple_inputs; /* Heap */
-        bool success = !load_input_as_coord(&tuple_inputs, &input_len);
-        
+
+        if (load_input_as_coord(&tuple_inputs, &input_len)) {
+            /* El input produjó un error*/
+            printf("\nIngrese la entrada nuevamente:\n");
+            continue;
+        }
+        for (int i = 0; i < input_len; ++i) {
+            printf("(%.2f, %.2f) ", tuple_inputs[i][0], tuple_inputs[i][1]);
+        }
+        printf("\n\n");
+
         /*
          * "Linealizamos" el tuple de coordeenadas, esto para uso en el algoritmo de dijkstra
          *  en una lista de adyacencia.
