@@ -19,15 +19,7 @@ void generate_adjacency(Set* vertices_adyacencia[CANT_VERT * CANT_HOR]) {
     int calles_verticales[] = {ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, ABAJO, ARRIBA, AMBAS};
 
     /* Esta es una matriz que nos permite tener una forma de visualizar los vértices. */
-    int id[CANT_VERT][CANT_HOR];
-
-    int contador = 0;
-    for (int i = 0; i < CANT_HOR; ++i) {
-        for (int j = 0; j < CANT_VERT; ++j) {
-            id[j][i] = contador++;
-        }
-    }
-
+    
     /* Imprimimos la matriz para poder ver las relaciones. */
     // for (int i = 0; i < CANT_HOR; ++i) {
     //     for (int j = 0; j < CANT_VERT; ++j) {
