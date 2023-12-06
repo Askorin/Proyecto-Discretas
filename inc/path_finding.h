@@ -1,6 +1,6 @@
 #ifndef PATH_FINDING_H
 #define PATH_FINDING_H
-#include "../inc/set.h"
+#include "set.h"
 
 extern const int CANT_VERT;
 extern const int CANT_HOR;

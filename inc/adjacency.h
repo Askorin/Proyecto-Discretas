@@ -1,6 +1,6 @@
 #ifndef ADJACENCY_H
 #define ADJACENCY_H
-#include <set.h>
+#include "set.h"
 
 extern const int CANT_VERT;
 extern const int CANT_HOR;
