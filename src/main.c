@@ -42,35 +42,19 @@ int main() {
         float input_len;
         float** tuple_inputs; /* Heap */
         bool success = !load_input_as_coord(&tuple_inputs, &input_len);
-        for (int i = 0; i < input_len; ++i) {
-            printf("(%.2f, %.2f) ", tuple_inputs[i][0], tuple_inputs[i][1]);
-        }
-        printf("\n\n");
-
+        
         /*
          * "Linealizamos" el tuple de coordeenadas, esto para uso en el algoritmo de dijkstra
          *  en una lista de adyacencia.
          */
-        // int n;
-        // if (input_len > 2) {n = 3;}
-        // else {n = 2;}
-        // int linear_inputs[n];
-        int linear_inputs[input_len];
 
-        for (int i = 0; i < input_len; ++i) {
+        int linear_inputs[(int) input_len];
+
+        for (int i = 0; i < (int) input_len; ++i) {
             linear_inputs[i] = tuple_to_int((int) tuple_inputs[i][0], (int) tuple_inputs[i][1], CANT_VERT);
-            printf("%d, ", linear_inputs[i]);
         }
-        printf("\n");
 
-        // TEMPORAL
-        if (input_len == 2) {
-            int source = tuple_to_int((int) tuple_inputs[0][0], (int) tuple_inputs[0][1], CANT_VERT);
-
-            int destiny = tuple_to_int((int) tuple_inputs[1][0], (int) tuple_inputs[1][1], CANT_VERT);
-            dijkstra(source, destiny, vertices_adyacencia);
-            printf("Done.\n");
-        }
+        get_path((int) input_len, linear_inputs, vertices_adyacencia);
 
 
         /* Liberamos memoria */
