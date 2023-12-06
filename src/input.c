@@ -312,6 +312,25 @@ int get_coordinate_from_address(char * address, float * x_holder, float * y_hold
         return 0;
     }
 
+    /* Revisamos si es la diagonal */
+    if ( strcmp(street_name, "Pedro Aguirre Cerda") == 0
+      || strcmp(street_name, "Diagonal") == 0 ) {
+        x = 8.0 - ((float)(street_number)) / 100;
+        y = 14.0 - ((float)(street_number)) / 100;
+        *(x_holder) = x;
+        *(y_holder) = y;
+
+        /* Manejamos el error de ingresar un numero de inmueble fuera de rango */
+        if (street_number < 100 || street_number > 400) {
+            printf("Entrada no válida: La direccion %s %d "
+                   "esta fuera del rango del programa\n", street_name, street_number);
+            printf("Intente ingresando la misma calle pero con un número de inmueble entre 100 y 400\n");
+            return 1;
+        }
+
+        return 0;
+    }
+
     /* El programa no encontró la calle especificada, manejamos el error */
     printf("Entrada no válida: La calle %s no existe\n", street_name);
     printf("Verifique que la calle que se esta intentando ingresar coincida exactamente "
