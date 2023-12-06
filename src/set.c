@@ -16,11 +16,11 @@ Set* init_set() {
 }
 
 void add_to_set(Set* set, int sujeto) {
-   if (in_set(set, sujeto)) return;
+    if (in_set(set, sujeto)) return;
 
-   ++set->len;
-   set->elementos = realloc(set->elementos, sizeof(int) * set->len);
-   set->elementos[set->len - 1] = sujeto;
+    ++set->len;
+    set->elementos = realloc(set->elementos, sizeof(int) * set->len);
+    set->elementos[set->len - 1] = sujeto;
 }
 
 void remove_from_set(Set* set, int sujeto) {
