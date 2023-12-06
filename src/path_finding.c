@@ -8,10 +8,9 @@
 #define NULL_VERTEX -1
 
 
-void dijkstra(int source, int destiny, Set* ady[CANT_TOTAL]) {
+void dijkstra(int source, Set* ady[CANT_TOTAL], int padre[CANT_TOTAL]) {
     int dist[CANT_TOTAL];
     Set* visto = init_set();
-    int padre[CANT_TOTAL];
     int peso = 1;
 
     for (int i = 0; i < CANT_TOTAL; ++i) {
@@ -66,37 +65,61 @@ void dijkstra(int source, int destiny, Set* ady[CANT_TOTAL]) {
         }
     }
     free_set(visto);
-
-    get_path(source, destiny, padre);
 }
 
 
-void get_path(int source, int destiny, int padre[CANT_TOTAL]) {
+void get_path(int input_len, int input[input_len], Set* ady[CANT_TOTAL]) {
+    
+    if (input_len > 2) {
+        /* Movemos el indice uno al final */
+        for (int i = 2; i < input_len; ++i) {
+            int temp = input[i];
+            input[i] = input[i - 1];
+            input[i - 1] = temp;
+        }
+
+        for (int i = 0; i < input_len - 1; ++i) {
+            int source = input[i];
+            int destiny = input[i + 1];
+            int padre[CANT_TOTAL];
+            dijkstra(source, ady, padre);
+            int path_len = 0;
+            int* path = generate_path(source, destiny, padre, &path_len);
+            for (int i = path_len - 1; i >= 0; --i) {
+                printf("%d ", path[i]);
+            }
+            free(path);
+        }
+
+    } else if (input_len == 2) {
+        int source = input[0];
+        int destiny = input[1];
+        int padre[CANT_TOTAL];
+        dijkstra(source, ady, padre);
+        int path_len = 0;
+        int* path = generate_path(source, destiny, padre, &path_len);
+
+        for (int i = path_len - 1; i >= 0; --i) {
+            printf("%d ", path[i]);
+        }
+        printf("\n");
+        free(path);
+        
+    } else {
+        printf("No implementado.\n");
+        return;
+    }
+
+}
+
+int* generate_path(int source, int destiny, int padre[CANT_TOTAL], int* path_len) {
     int vertex = destiny;
     int* path = NULL;
-    int path_len;
     while (vertex != source) {
-        ++path_len;
-        path = realloc(path, sizeof(int) * path_len);
-        path[path_len - 1] = vertex;
+        ++(*path_len);
+        path = realloc(path, sizeof(int) * (*path_len));
+        path[(*path_len) - 1] = vertex;
         vertex = padre[vertex];
     }
-
-    char * v_streets[14] = {"Arturo Prat", "Serrano", "Salas", "Angol", "Lincoyan",
-                           "Rengo", "Caupolican", "Anibal Pinto", "Colo Colo",
-                           "Castellon", "Tucapel", "Orompello", "Ongolmo", "Paicavi"};
-    char * h_streets[8] = {"Carrera", "Maipu", "Freire", "Barros Arana",
-                           "O'Higgins", "San Martin", "Cochrane", "Chacabuco"};
-
-    for (int i = path_len - 1; i >= 0; --i) {
-        printf("Vertice: (%d)\n",path[i]);
-        printf("%s con %s\n",h_streets[path[i]/8],v_streets[path[i]%14]);
-
-    }
-
-
-
-
-
-    free(path);
+    return path;
 }
