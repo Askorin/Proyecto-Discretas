@@ -29,7 +29,7 @@ int main() {
         float input_len;
         float** tuple_inputs; /* Heap */
 
-        if (load_input_as_coord(&tuple_inputs, &input_len)) {
+        if (load_input_as_coord(&tuple_inputs, &input_len) || input_len == 1) {
             /* El input produjó un error*/
             printf("\nIngrese la entrada nuevamente:\n");
             continue;
