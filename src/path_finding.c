@@ -70,7 +70,9 @@ void dijkstra(int source, int destiny, Set* ady[CANT_TOTAL]) {
 }
 
 
-void get_path(int source, int destiny, int padre[CANT_TOTAL]) {
+void get_path(int input_len, int nodes[input_len], Set* ady[CANT_TOTAL]) {
+
+
     int vertex = destiny;
     int* path = NULL;
     int path_len;

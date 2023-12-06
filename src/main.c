@@ -51,16 +51,15 @@ int main() {
          * "Linealizamos" el tuple de coordeenadas, esto para uso en el algoritmo de dijkstra
          *  en una lista de adyacencia.
          */
-        int n;
-        if (input_len > 2) {n = 3;}
-        else {n = 2;}
-        int linear_inputs[n];
+        // int n;
+        // if (input_len > 2) {n = 3;}
+        // else {n = 2;}
+        // int linear_inputs[n];
+        int linear_inputs[input_len];
 
-        for (int i = 0; i < n; ++i) {
-
+        for (int i = 0; i < input_len; ++i) {
             linear_inputs[i] = tuple_to_int((int) tuple_inputs[i][0], (int) tuple_inputs[i][1], CANT_VERT);
-            printf("%d : ", linear_inputs[i]);
-            print_set(vertices_adyacencia[linear_inputs[i]]);
+            printf("%d, ", linear_inputs[i]);
         }
         printf("\n");
 
