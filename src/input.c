@@ -45,18 +45,34 @@ void string_reverse(char* str)
  * Esta función devuelve:
  * 0 - Si se realizó con exito
  * 1 - Si hubo un error en su ejecución
+ * 2 - Si se llamó al cierre del programa
 */
 int load_input_as_string(char*** input_holder, int* number_of_inputs_holder) {
     int i;
     int counter;
 
     /* Recibimos el string de entrada */
+    printf("\nIngrese su instrucción:\n");
+
     char input_str [MAX];
     scanf("%s", input_str);
 
+    /* Revisamos si comienza por salir */
+    if (strcmp(input_str, "salir") == 0) {
+        printf("Cerrando programa.\n");
+        return 2;
+    }
+
     /* Revisamos si comienza por rutas */
     if (strcmp(input_str, "rutas") != 0) {
-        printf("Entrada no válida: Utilice el comando \"rutas\"\n");
+        printf("Entrada no válida: Utilice el comando rutas\n");
+        /* Debemos vaciar el buffer */
+        while (true) {
+            char c = getchar();
+            if (c == '\n') {
+                break;
+            }
+        }
         return 1;
     }
 
@@ -355,13 +371,22 @@ int get_coordinate_from_address(char * address, float * x_holder, float * y_hold
  * Esta función devuelve:
  * 0 - Si se realizó con exito
  * 1 - Si hubo un error en su ejecución
+ * 2 - Si se llamó al cierre del programa
 */
 int load_input_as_coord(float *** coord_collection_holder, float * number_of_coords_holder) {
     char ** input;
     int n;
-    if (load_input_as_string(&input, &n)) {
-        return 1; //La función falló
+
+    { 
+        int cond = load_input_as_string(&input, &n);
+        if (cond == 1) {
+            return 1; //La función falló
+        }
+        if (cond == 2) {
+            return 2; //Se llamó al cierre del programa
+        }
     }
+
 
     float point_x[n];
     float point_y[n];
