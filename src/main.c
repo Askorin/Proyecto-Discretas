@@ -2,6 +2,7 @@
 #include "../inc/adjacency.h"
 #include "../inc/linealize.h"
 #include "../inc/path_finding.h"
+#include "../inc/start.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,6 +21,8 @@ int main() {
     Set* vertices_adyacencia[CANT_TOTAL];
     generate_adjacency(vertices_adyacencia);
 
+    /* Imprimimos el texto de inicio */
+    print_start();
 
     while (running) {
         /* 
@@ -29,11 +32,18 @@ int main() {
         float input_len;
         float** tuple_inputs; /* Heap */
 
-        if (load_input_as_coord(&tuple_inputs, &input_len) || input_len == 1) {
-            /* El input produjó un error*/
-            printf("\nIngrese la entrada nuevamente:\n");
-            continue;
+        {
+            int cond = load_input_as_coord(&tuple_inputs, &input_len);
+            if (cond == 1 || input_len == 1) {
+                /* El input produjó un error */
+                continue;
+            }
+            if (cond == 2) {
+                /* Se llamó al cierre del programa */
+                break;
+            }
         }
+        
 
         /*
          * "Linealizamos" el tuple de coordeenadas, esto para uso en el algoritmo de dijkstra
@@ -53,7 +63,6 @@ int main() {
         for (int i = 0; i < input_len; ++i) free(tuple_inputs[i]);
         for (int i = 0; i < input_len; ++i) free_set(vertices_adyacencia[i]);
         free(tuple_inputs);
-        running = false;
     }
     return 0;
 }
