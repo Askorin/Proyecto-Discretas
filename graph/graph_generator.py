@@ -137,7 +137,7 @@ for vertex, neighbors in adjacency_lists.items():
 pos = nx.get_node_attributes(G, 'pos')
 nx.draw(G, pos, with_labels=True, font_weight='bold', node_size=700, node_color='skyblue')
 
-labels = {node: f'({pos[node][0]}, {-1*pos[node][1]})' for node in G.nodes()}
+labels = {node: f'({-1*pos[node][1]}, {pos[node][0]})' for node in G.nodes()}
 label_pos = {node: (pos[node][0] + 0.3, pos[node][1] - 0.05) for node in G.nodes}
 nx.draw_networkx_labels(G, label_pos, labels, font_size=8, font_color='black', verticalalignment='top')
 
