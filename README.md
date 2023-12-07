@@ -9,6 +9,7 @@ make
 ```
 
 ### Compilación directa con gcc
+Ejecutar el siguiente comando en el directorio  ./src:
 ```bash
 gcc main.c set.c linealize.c input.c adjacency.c path_finding.c start.c -o main
 ```
