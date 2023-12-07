@@ -29,8 +29,8 @@ int main() {
          * Declaramos el arreglo de strings que contendrá el input
          * del usuario, y lo adquirimos.
          */
-        float input_len;
-        float** tuple_inputs; /* Heap */
+        int input_len;
+        float** tuple_inputs = NULL; /* Heap */
 
         {
             int cond = load_input_as_coord(&tuple_inputs, &input_len);
@@ -50,20 +50,25 @@ int main() {
          *  en una lista de adyacencia.
          */
 
-        int linear_inputs[(int) input_len];
+        int linear_inputs[input_len];
 
-        for (int i = 0; i < (int) input_len; ++i) {
+        for (int i = 0; i < input_len; ++i) {
             linear_inputs[i] = tuple_to_int((int) tuple_inputs[i][0], (int) tuple_inputs[i][1], CANT_VERT);
         }
 
-        get_path((int) input_len, linear_inputs, vertices_adyacencia);
+        get_path(input_len, linear_inputs, vertices_adyacencia);
 
 
         /* Liberamos memoria */
-        for (int i = 0; i < input_len; ++i) free(tuple_inputs[i]);
-        for (int i = 0; i < input_len; ++i) free_set(vertices_adyacencia[i]);
+        for (int i = 0; i < input_len; ++i) {
+            free(tuple_inputs[i]);
+            tuple_inputs[i] = NULL;
+        }
+        //for (int i = 0; i < input_len; ++i) free_set(vertices_adyacencia[i]);
         free(tuple_inputs);
+        tuple_inputs = NULL;
     }
+
     return 0;
 }
 
