@@ -94,7 +94,7 @@ void get_path(int input_len, int input[input_len], Set* ady[CANT_TOTAL]) {
             int* path = generate_path(source, destiny, padre, &path_len);
 
             for (int i = path_len - 1; i >= 0; --i) {
-                printf("%s con %s\n",h_streets[path[i]/14],v_streets[path[i]%14]);
+                printf("%s con %s\n",h_streets[path[i]/CANT_VERT],v_streets[path[i]%CANT_VERT]);
             }
             free(path);
         }
