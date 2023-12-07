@@ -64,10 +64,11 @@ int main() {
             free(tuple_inputs[i]);
             tuple_inputs[i] = NULL;
         }
-        //for (int i = 0; i < input_len; ++i) free_set(vertices_adyacencia[i]);
         free(tuple_inputs);
         tuple_inputs = NULL;
     }
+
+    for (int i = 0; i < CANT_TOTAL; ++i) free_set(vertices_adyacencia[i]);
 
     return 0;
 }
