@@ -34,13 +34,17 @@ int main() {
 
         {
             int cond = load_input_as_coord(&tuple_inputs, &input_len);
-            if (cond == 1 || input_len == 1) {
+            if (cond == 1) {
                 /* El input produjó un error */
                 continue;
             }
             if (cond == 2) {
                 /* Se llamó al cierre del programa */
                 break;
+            }
+            if (input_len == 1) {
+                printf("Entrada no válida: Ingrese como mínimo dos direcciones\n");
+                continue;
             }
         }
         
