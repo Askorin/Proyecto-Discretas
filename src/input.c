@@ -373,7 +373,7 @@ int get_coordinate_from_address(char * address, float * x_holder, float * y_hold
  * 1 - Si hubo un error en su ejecución
  * 2 - Si se llamó al cierre del programa
 */
-int load_input_as_coord(float *** coord_collection_holder, float * number_of_coords_holder) {
+int load_input_as_coord(float *** coord_collection_holder, int * number_of_coords_holder) {
     char ** input;
     int n;
 
@@ -398,10 +398,13 @@ int load_input_as_coord(float *** coord_collection_holder, float * number_of_coo
 
     //Reservamos en la memoria
     float ** coord_collection = NULL;
-
-    coord_collection = realloc(coord_collection, n * sizeof(float *));
+    coord_collection = malloc(n * sizeof(float *));
+    
     for (int i = 0; i < n; i++) {
-        *(coord_collection + i) = realloc(*(coord_collection + i), 2 * sizeof(float));
+        *(coord_collection + i) = NULL;
+    }
+    for (int i = 0; i < n; i++) {
+        *(coord_collection + i) = malloc(2 * sizeof(float));
     }
 
     // Escribimos en la entrada
